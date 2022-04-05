@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+
+
+</head>
+<style>
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 5%;
+        background-color: black;
+        color: white;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .footer h3{
+        color:white;
+        font-weight: bold;  }
+
+    .vertical-center {
+        margin: 0;
+        position: absolute;
+        left:50%;
+        -ms-transform: translateX(-50%);
+        transform: translateX(-50%);
+        background-color: red;
+        margin-top: 1%;
+    }
+
+    #tabel {
+        font-family: Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        text-align:center;
+    }
+
+    #tabel td, #tabel th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #tabel tr:nth-child(even){background-color: #f2f2f2;}
+
+    #tabel tr:hover {background-color: #ddd;}
+
+    #tabel th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: center;
+        background-color: #d972ff;
+        color: white;
+        font-weight: bold;
+    }
+
+    .page{
+        margin-top:3px;
+        color: white;
+        background-color: black;
+        height: 10%;
+        width: 100%;
+        text-align: center;
+    }
+    #tabel th  p{
+        color:white ;
+    }
+    .barr{
+        margin-left: 20%;
+    }
+    .rigthalign{
+        float:right;
+        padding: 0;
+        width: 7%;
+    }
+    .rigthalign h2{
+        color: #dddddd;
+        font-size:medium;
+    }
+    .rigthalign p{
+        color: #dddddd;
+        position: absolute;
+    }
+</style>
+<body>
+
+
+
+<div class="container-fluid">
+    <table id="tabel" cellspacing="0" border="1">
+        <thead class="thead-inverse">
+        <tr>
+            <th>
+                <a th:href="@{'/job/list/page/'+${currentPage} +'?sortField=id&sortDirection=' +${reversesortDir }}">
+                    <p>Id <i class="fa fa-sort" aria-hidden="true"></i></p>
+                </a>
+            </th>
+            <th>
+                <a th:href="@{'/job/list/page/'+${currentPage} +'?sortField=title&sortDirection=' +${reversesortDir }}">
+                    <p>Title <i class="fa fa-sort" aria-hidden="true"></i></p>
+                </a>
+            </th>
+            <th><a th:href="@{'/job/list/page/'+${currentPage} +'?sortField=company&sortDirection=' +${reversesortDir }}">
+                <p>Company <i class="fa fa-sort" aria-hidden="true"></i></p>
+            </a></th>
+            <th>
+                <a th:href="@{'/job/list/page/'+${currentPage} +'?sortField=city&sortDirection=' +${reversesortDir }}">
+                    <p>City<i class="fa fa-sort" aria-hidden="true"></i></p>
+                </a>
+            </th>
+
+            <th>
+                <a th:href="@{'/job/list/page/'+${currentPage} +'?sortField=level&sortDirection=' +${reversesortDir }}">
+                    <p>Level <i class="fa fa-sort" aria-hidden="true"></i></p>
+                </a>
+            </th>
+
+            <th>Info</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tr th:each="job, stat:${jobs}"
+            th:class="${stat.odd}? 'table-light':'table-dark'"
+        >
+            <td th:text="${job.id}">1</td>
+            <td th:text="${job.title}">Title</td>
+            <td th:text="${job.company}">Company</td>
+            <td th:text="${job.city}">City</td>
+            <td th:text="${job.level}">Level</td>
+
+            <td> <a class="btn btn-warning" type="button" data-toggle="tooltip" data-placement="top" title="Info" th:href="@{'/job/info/' +${job.id}}"><i class="fa fa-info"></i></a>  </td>
+            <td> <a class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit" th:href="@{'/job/update/' +${job.id}}"><i class="fa fa-edit"></i></a>  </td>
+            <td> <a class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete" th:href="@{'/job/delete/' +${job.id}}"><i class="fa fa-trash"></i></a>  </td>
+
+        </tr>
+
+
+    </table>
+
+    <div class="page">
+        Total Items:[[${totalItems}]] &nbsp; - Page &nbsp; [[${currentPage}]]  &nbsp; of [[${totalPages}]] &nbsp;
+
+        <a th:if="${currentPage>1}" th:href="@{'/job/list/page/1?sortField='+${sortField} +'&sortDirection=' +${sortDirection }}" >| First | &nbsp;</a>
+        <span th:unless="${currentPage >1}">| First | &nbsp; </span>
+
+        <a th:if="${currentPage >1}" th:href="@{'/job/list/page/' +${currentPage-1} + '?sortField='+${sortField} +'&sortDirection=' +${sortDirection }}">Previous</a>
+        <span th:unless="${currentPage>1}">| Previous | &nbsp; </span>
+
+
+        <span th:each="i:${#numbers.sequence(1,totalPages)}">
+            <a th:if="${i!=currentPage}" th:href="@{'/job/list/page/'+ ${i}} +'?sortField='+${sortField} +'&sortDirection=' +${sortDirection }">| [[${i}]] |</a>&nbsp;&nbsp;
+            <span th:unless="${i!=currentPage}">| [[${i}]]</span>
+        </span>
+
+
+        <a th:if="${currentPage<totalPages}" th:href="@{'/job/list/page/'+${currentPage+1} + '?sortField='+${sortField} +'&sortDirection=' +${sortDirection }}">| Next | &nbsp;</a>
+        <span th:unless="${currentPage<totalPages}" >| Next | &nbsp;</span>
+
+        <a th:if="${currentPage<totalPages}" th:href="@{'/job/list/page/'+${totalPages} + '?sortField='+${sortField} +'&sortDirection=' +${sortDirection }}">| Last | &nbsp;</a>
+        <span th:unless="${currentPage<totalPages}">| Last | &nbsp;</span>
+
+    </div>
+
+
+</div>
+<div class="footer">
+    <h3>JobFinder @2022</h3>
+</div>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Job Info</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+<style>
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 5%;
+        background-color: black;
+        color: white;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .footer h3{
+        color:white;
+        font-weight: bold;  }
+    .center_div{
+        margin: 0 auto;
+        width:65% ;
+        text-align: center;
+        align-items: center;
+    }
+    .topnav-centered h3 {
+        float: none;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #dddddd;
+    }
+    .leftform{
+        left:20%;
+    }
+    .errors{
+        color: red;
+    }
+</style>
+<body>
+<script>
+    function myFunction() {
+        alert("The job has been added with successfull!");
+    }
+</script>
+<nav class="navbar navbar-inverse">
+    <div class="topnav-centered">
+        <h3>Job info</h3>
+    </div>
+
+</nav>
+<h1 th:text="${job.id}"></h1>
+<h1 th:text="${job.title}"></h1>
+<h1 th:text="${job.city}"></h1>
+<h1 th:text="${job.company}"></h1>
+<h1 th:text="${job.level}"></h1>
+<h1 th:text="${job.requirements}"></h1>
+<h1 th:text="${job.description}"></h1>
+
+<div class="footer">
+    <h3>JobFinder @2022</h3>
+</div>
+</body>
+</html>

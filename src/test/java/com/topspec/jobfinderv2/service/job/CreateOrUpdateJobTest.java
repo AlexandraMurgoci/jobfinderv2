@@ -5,21 +5,19 @@ import com.topspec.jobfinderv2.repository.JobRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
-import org.mockito.Mock;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-public class CreateJobTest {
+public class CreateOrUpdateJobTest {
 
-    @Mock
-    private JobRepository jobRepository;
+    private final JobRepository jobRepository = mock(JobRepository.class);
 
-    private CreateJob sut;
+    private CreateOrUpdateJob sut;
 
     @Before
     public void setUp() throws Exception {
-        sut =new CreateJob(jobRepository);
+        sut =new CreateOrUpdateJob(jobRepository);
     }
 
     @Test

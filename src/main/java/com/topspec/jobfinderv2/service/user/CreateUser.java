@@ -1,5 +1,6 @@
 package com.topspec.jobfinderv2.service.user;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.topspec.jobfinderv2.model.user.User;
 import com.topspec.jobfinderv2.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,8 @@ public class CreateUser {
     }
 
     public User create(CreateUserDto createUserDto){
-        return null;
+        User user = new User(createUserDto.getEmail(), createUserDto.getUsername(), BCrypt.withDefaults().hashToString(12, createUserDto.getPassword().toCharArray()));
+        return userRepository.save(user);
+
     }
 }

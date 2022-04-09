@@ -19,8 +19,14 @@ public class CreateUser {
     }
 
     public User create(CreateUserDto createUserDto){
+        if(createUserDto.getEmail() == null || createUserDto.getEmail().equals("")
+        || createUserDto.getUsername() == null || createUserDto.getUsername().equals("")
+        || createUserDto.getPassword() == null || createUserDto.getPassword().equals("")
+        || createUserDto.getRoles() == null || createUserDto.getRoles().isEmpty()) {
+            throw new IllegalArgumentException();
+        }
         User user = new User(createUserDto.getEmail(), createUserDto.getUsername(), BCrypt.withDefaults().hashToString(12, createUserDto.getPassword().toCharArray()));
+        user.setRoles(createUserDto.getRoles());
         return userRepository.save(user);
-
     }
 }

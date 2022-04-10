@@ -30,6 +30,10 @@ public class Job {
     @NotBlank(message = "The job description must be not blank!")
     private String description;
 
+
+    @OneToMany(mappedBy = "jobapp",cascade = CascadeType.ALL)
+    private List<Application> applications2;
+
     /*
     public void setId(Long id) {
         this.id = id;
@@ -63,6 +67,10 @@ public class Job {
         this.description = description;
     }
 
+    public void setApplications2(List<Application> applications2) {
+        this.applications2 = applications2;
+    }
+
     public Long getId() {
         return id;
     }
@@ -93,6 +101,10 @@ public class Job {
 
     public String getDescription() {
         return description;
+    }
+
+    public List<Application> getApplications2() {
+        return applications2;
     }
 
      */

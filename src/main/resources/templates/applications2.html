@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+
+
+</head>
+<style>
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 5%;
+        background-color: black;
+        color: white;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .footer h3{
+        color:white;
+        font-weight: bold;  }
+
+    .vertical-center {
+        margin: 0;
+        position: absolute;
+        left:50%;
+        -ms-transform: translateX(-50%);
+        transform: translateX(-50%);
+        background-color: red;
+        margin-top: 1%;
+    }
+
+    #tabel {
+        font-family: Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        text-align:center;
+    }
+
+    #tabel td, #tabel th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #tabel tr:nth-child(even){background-color: #f2f2f2;}
+
+    #tabel tr:hover {background-color: #ddd;}
+
+    #tabel th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: center;
+        background-color: #d972ff;
+        color: white;
+        font-weight: bold;
+    }
+
+    .page{
+        margin-top:3px;
+        color: white;
+        background-color: black;
+        height: 10%;
+        width: 100%;
+        text-align: center;
+    }
+    #tabel th  p{
+        color:white ;
+    }
+    .barr{
+        margin-left: 20%;
+    }
+    .rigthalign{
+        float:right;
+        padding: 0;
+        width: 7%;
+    }
+    .rigthalign h2{
+        color: #dddddd;
+        font-size:medium;
+    }
+    .rigthalign p{
+        color: #dddddd;
+        position: absolute;
+    }
+</style>
+<body>
+
+
+
+<div class="container-fluid">
+    <table id="tabel" cellspacing="0" border="1">
+        <thead class="thead-inverse">
+        <tr>
+            <th>
+
+                    <p>Status <i class="fa fa-sort" aria-hidden="true"></i></p>
+
+            </th>
+            <th>
+                <p>User</p>
+            </th>
+
+
+
+            <th>
+                <p>Company name</p>
+            </th>
+
+            <th>
+                <p>Title job</p>
+            </th>
+
+            <th>
+                <p>Job level</p>
+            </th>
+
+            <th>
+                <p>City</p>
+            </th>
+
+        </tr>
+        </thead>
+        <tr th:each="app, stat:${apps}"
+            th:class="${stat.odd}? 'table-light':'table-dark'"
+        >
+            <td th:text="${app.status}">Status</td>
+            <td th:text="${app.status}">Status</td>
+            <td th:text="${app.getJobapp().company}">Company name</td>
+            <td th:text="${app.getJobapp().title}">Title job</td>
+            <td th:text="${app.getJobapp().level}">Job level</td>
+            <td th:text="${app.getJobapp().city}">City</td>
+
+
+        </tr>
+
+
+    </table>
+
+
+
+</div>
+<div class="footer">
+    <h3>JobFinder @2022</h3>
+</div>
+</body>
+</html>

@@ -15,6 +15,8 @@ public class User {
 
     private String name;
 
+    @OneToMany(mappedBy = "userapp",cascade = CascadeType.ALL)
+    private List<Application> applications;
 /*
     public void setId(Long id) {
         this.id = id;
@@ -24,12 +26,20 @@ public class User {
         this.name = name;
     }
 
+    public void setApplications(List<Application> applications) {
+        this.applications = applications;
+    }
+
     public Long getId() {
         return id;
     }
 
     public String getName() {
         return name;
+    }
+
+    public List<Application> getApplications() {
+        return applications;
     }
 
      */

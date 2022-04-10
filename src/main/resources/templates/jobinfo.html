@@ -65,6 +65,7 @@
 <h1 th:text="${job.level}"></h1>
 <h1 th:text="${job.requirements}"></h1>
 <h1 th:text="${job.description}"></h1>
+ <a class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Apply now!" th:href="@{'/app/' +${job.id}}">Apply!</i></a>
 
 <div class="footer">
     <h3>JobFinder @2022</h3>

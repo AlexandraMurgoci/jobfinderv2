@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Applications</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+
+
+</head>
+<style>
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 5%;
+        background-color: black;
+        color: white;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .footer h3{
+        color:white;
+        font-weight: bold;  }
+
+    .vertical-center {
+        margin: 0;
+        position: absolute;
+        left:50%;
+        -ms-transform: translateX(-50%);
+        transform: translateX(-50%);
+        background-color: red;
+        margin-top: 1%;
+    }
+
+    #tabel {
+        font-family: Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        text-align:center;
+    }
+
+    #tabel td, #tabel th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #tabel tr:nth-child(even){background-color: #f2f2f2;}
+
+    #tabel tr:hover {background-color: #ddd;}
+
+    #tabel th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: center;
+        background-color: #d972ff;
+        color: white;
+        font-weight: bold;
+    }
+
+    .page{
+        margin-top:3px;
+        color: white;
+        background-color: black;
+        height: 10%;
+        width: 100%;
+        text-align: center;
+    }
+    #tabel th  p{
+        color:white ;
+    }
+    .barr{
+        margin-left: 20%;
+    }
+    .rigthalign{
+        float:right;
+        padding: 0;
+        width: 7%;
+    }
+    .rigthalign h2{
+        color: #dddddd;
+        font-size:medium;
+    }
+    .rigthalign p{
+        color: #dddddd;
+        position: absolute;
+    }
+</style>
+<body>
+
+
+
+<div class="container-fluid">
+    <table id="tabel" cellspacing="0" border="1">
+        <thead class="thead-inverse">
+        <tr>
+            <th>
+                <a th:href="@{'/app/list/page/'+${currentPage} +'?sortField=id&sortDirection=' +${reversesortDir }}">
+                    <p>Id <i class="fa fa-sort" aria-hidden="true"></i></p>
+                </a>
+            </th>
+            <th>
+                <a th:href="@{'/app/list/page/'+${currentPage} +'?sortField=status&sortDirection=' +${reversesortDir }}">
+                    <p>Status <i class="fa fa-sort" aria-hidden="true"></i></p>
+                </a>
+            </th>
+            <th>
+                <p>User</p>
+            </th>
+
+
+
+            <th>
+                <p>Company name</p>
+            </th>
+
+            <th>
+                <p>Title job</p>
+            </th>
+
+            <th>
+                <p>Job level</p>
+            </th>
+
+            <th>
+                <p>City</p>
+            </th>
+
+            <th>
+                <p>User name</p>
+            </th>
+
+            <th>Aprove</th>
+            <th>Reject</th>
+
+        </tr>
+        </thead>
+        <tr th:each="app, stat:${apps}"
+            th:class="${stat.odd}? 'table-light':'table-dark'"
+        >
+            <td th:text="${app.id}">1</td>
+            <td th:text="${app.status}">Status</td>
+            <td th:text="${app.status}">Status</td>
+            <td th:text="${app.getJobapp().company}">Company name</td>
+            <td th:text="${app.getJobapp().title}">Title job</td>
+            <td th:text="${app.getJobapp().level}">Job level</td>
+            <td th:text="${app.getJobapp().city}">City</td>
+            <td>Userullll name</td>
+            <td><a class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Aprove" th:href="@{'/app/updatestatus/' +${app.id}+'?status=Aproved'}">Aprove</a></td>
+            <td><a class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Reject" th:href="@{'/app/updatestatus/' +${app.id}+'?status=Rejected'}">Reject</a></td>
+
+        </tr>
+
+
+    </table>
+
+    <div class="page">
+        Total Items:[[${totalItems}]] &nbsp; - Page &nbsp; [[${currentPage}]]  &nbsp; of [[${totalPages}]] &nbsp;
+
+        <a th:if="${currentPage>1}" th:href="@{'/app/list/page/1?sortField='+${sortField} +'&sortDirection=' +${sortDirection }}" >| First | &nbsp;</a>
+        <span th:unless="${currentPage >1}">| First | &nbsp; </span>
+
+        <a th:if="${currentPage >1}" th:href="@{'/app/list/page/' +${currentPage-1} + '?sortField='+${sortField} +'&sortDirection=' +${sortDirection }}">Previous</a>
+        <span th:unless="${currentPage>1}">| Previous | &nbsp; </span>
+
+
+        <span th:each="i:${#numbers.sequence(1,totalPages)}">
+            <a th:if="${i!=currentPage}" th:href="@{'/app/list/page/'+ ${i}} +'?sortField='+${sortField} +'&sortDirection=' +${sortDirection }">| [[${i}]] |</a>&nbsp;&nbsp;
+            <span th:unless="${i!=currentPage}">| [[${i}]]</span>
+        </span>
+
+
+        <a th:if="${currentPage<totalPages}" th:href="@{'/app/list/page/'+${currentPage+1} + '?sortField='+${sortField} +'&sortDirection=' +${sortDirection }}">| Next | &nbsp;</a>
+        <span th:unless="${currentPage<totalPages}" >| Next | &nbsp;</span>
+
+        <a th:if="${currentPage<totalPages}" th:href="@{'/app/list/page/'+${totalPages} + '?sortField='+${sortField} +'&sortDirection=' +${sortDirection }}">| Last | &nbsp;</a>
+        <span th:unless="${currentPage<totalPages}">| Last | &nbsp;</span>
+
+    </div>
+
+
+</div>
+<div class="footer">
+    <h3>JobFinder @2022</h3>
+</div>
+</body>
+</html>
